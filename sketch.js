@@ -6,6 +6,8 @@ const Constraint=Matter.Constraint;
 var treeObj, stoneObj,groundObject, sling;
 var mango1,mango2,mango3,mango4,mango5,mango6,mango7,mango8,mango9,mango10,mango11,mango12;
 var world,boy;
+var gamestate;
+var score;
 
 function preload(){
 	boy=loadImage("images/boy.png");
@@ -31,11 +33,21 @@ mango10=new mango(1200,200,24);
 mango11=new mango(1100,250,44);
 mango12=new mango(1120,50,35);
 mango13=new mango(1050,200,34);
+mango14=new mango(1040,140,43);
+mango15=new mango(1200,200,24);
+mango16=new mango(1000,250,34);
+mango17=new mango(1050,50,35);
+mango18=new mango(960,200,44);
+
 
 
 treeObj=new tree(1050,580);
 groundObject=new ground(width/2,600,width,20);
 sling=new Slingshot(stoneObj.body,{x:240,y:460})  
+
+gamestate = 1;
+score = 0;
+
 Engine.run(engine);
  
 }
@@ -43,6 +55,8 @@ Engine.run(engine);
 function draw() {
 
   background("rgb(73, 234, 255)");
+
+  if(gamestate === 1){
   textSize(30);
   stroke("white");
   textFont("Lucida Calligraphy");
@@ -51,8 +65,6 @@ function draw() {
   text("Press Space To Get A New Stone To Throw!",50 ,200);
   text("Drag the stone behind and then release.",50 ,100);
   image(boy,200,380,200,300);
-
-  
   
   treeObj.display();
   stoneObj.display();
@@ -68,6 +80,11 @@ function draw() {
   mango11.display();
   mango12.display();
   mango13.display();
+  mango14.display();
+  mango15.display();
+  mango16.display();
+  mango17.display();
+  mango18.display();
   
   stoneObj.display();
 
@@ -86,7 +103,13 @@ function draw() {
   detectollision(stoneObj,mango11);
   detectollision(stoneObj,mango12);
   detectollision(stoneObj,mango13);
+  detectollision(stoneObj,mango14);
+  detectollision(stoneObj,mango15);
+  detectollision(stoneObj,mango16);
+  detectollision(stoneObj,mango17);
+  detectollision(stoneObj,mango18);
 
+  }
 
 }
 
@@ -113,5 +136,6 @@ function keyPressed() {
   var distance=dist(stoneBodyPosition.x,stoneBodyPosition.y,mangoBodyPosition.x,mangoBodyPosition.y)
   if (distance<=lmango.r+lstone.r){
    Matter.Body.setStatic(lmango.body , false);
+   stoneObj.visible = false;
  } 
 }
