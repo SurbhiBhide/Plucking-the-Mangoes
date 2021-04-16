@@ -51,6 +51,8 @@ function draw() {
   text("Press Space To Get A New Stone To Throw!",50 ,200);
   text("Drag the stone behind and then release.",50 ,100);
   image(boy,200,380,200,300);
+
+  
   
   treeObj.display();
   stoneObj.display();
@@ -84,6 +86,8 @@ function draw() {
   detectollision(stoneObj,mango11);
   detectollision(stoneObj,mango12);
   detectollision(stoneObj,mango13);
+
+
 }
 
 function mouseDragged(){
