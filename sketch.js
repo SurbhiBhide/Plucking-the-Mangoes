@@ -42,7 +42,7 @@ Engine.run(engine);
 
 function draw() {
 
-  background("rgb(73, 233, 255)");
+  background("rgb(73, 234, 255)");
   textSize(30);
   stroke("white");
   textFont("Lucida Calligraphy");
