@@ -45,7 +45,7 @@ treeObj=new tree(1050,580);
 groundObject=new ground(width/2,600,width,20);
 sling=new Slingshot(stoneObj.body,{x:240,y:460})  
 
-gamestate = 1;
+gamestate = "start";
 score = 0;
 
 Engine.run(engine);
@@ -114,7 +114,10 @@ function draw() {
 }
 
 function mouseDragged(){
-	Matter.Body.setPosition(stoneObj.body, {x:mouseX, y:mouseY}) 
+	if(gamestate === "start"){
+	Matter.Body.setPosition(stoneObj.body, {x:mouseX, y:mouseY}) ;
+		gamestate = "launched";
+	}
 }
 
 function mouseReleased(){
@@ -125,6 +128,7 @@ function keyPressed() {
 	if (keyCode === 32) {
     Matter.Body.setPosition(stoneObj.body, {x:235, y:420}) 
 	  sling.attach(stoneObj.body);
+		gamestate = "start";
 	}
 }
 
