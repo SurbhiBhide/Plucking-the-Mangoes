@@ -3,11 +3,13 @@ const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
 const Constraint=Matter.Constraint;
+
 var treeObj, stoneObj,groundObject, sling;
 var mango1,mango2,mango3,mango4,mango5,mango6,mango7,mango8,mango9,mango10,mango11,mango12;
 var world,boy;
-var gamestate;
+var Turns;
 var score;
+var gamestate = "start";
 
 function preload(){
 	boy=loadImage("images/boy.png");
@@ -41,11 +43,11 @@ mango18=new mango(960,200,44);
 
 
 
-treeObj=new tree(1050,580);
+treeObj=new tree(1050,600);
 groundObject=new ground(width/2,600,width,20);
 sling=new Slingshot(stoneObj.body,{x:240,y:460})  
 
-gamestate = "start";
+Turns = 0;
 score = 0;
 
 Engine.run(engine);
@@ -54,16 +56,18 @@ Engine.run(engine);
 
 function draw() {
 
-  background("rgb(73, 234, 255)");
+  background("rgb(155, 203, 255)");
 
-  if(gamestate === 1){
-  textSize(30);
+
+
   stroke("white");
   textFont("Lucida Calligraphy");
   fill('rgb(249, 59, 173)');
+  stroke('purple')
   textSize(30);
   text("Press Space To Get A New Stone To Throw!",50 ,200);
   text("Drag the stone behind and then release.",50 ,100);
+  text("Turns: " +Turns,50,300);
   image(boy,200,380,200,300);
   
   treeObj.display();
@@ -109,26 +113,44 @@ function draw() {
   detectollision(stoneObj,mango17);
   detectollision(stoneObj,mango18);
 
+  /*COLLIDE(groundObject,mango1);
+  COLLIDE(groundObject,mango2);
+  COLLIDE(groundObject,mango3);
+  COLLIDE(groundObject,mango4);
+  COLLIDE(groundObject,mango5);
+  COLLIDE(groundObject,mango6);
+  COLLIDE(groundObject,mango7);
+  COLLIDE(groundObject,mango8);
+  COLLIDE(groundObject,mango9);
+  COLLIDE(groundObject,mango10);
+  COLLIDE(groundObject,mango11);
+  COLLIDE(groundObject,mango12);
+  COLLIDE(groundObject,mango13);
+  COLLIDE(groundObject,mango14);
+  COLLIDE(groundObject,mango15);
+  COLLIDE(groundObject,mango16);
+  COLLIDE(groundObject,mango17);
+  COLLIDE(groundObject,mango18);*/
+
   }
 
-}
-
 function mouseDragged(){
-	if(gamestate === "start"){
-	Matter.Body.setPosition(stoneObj.body, {x:mouseX, y:mouseY}) ;
-		gamestate = "launched";
-	}
+  if(gamestate === "start"){
+	Matter.Body.setPosition(stoneObj.body, {x:mouseX, y:mouseY});
+}
 }
 
 function mouseReleased(){
 	sling.fly();
+  gamestate = "launched";
 }
 
 function keyPressed() {
 	if (keyCode === 32) {
     Matter.Body.setPosition(stoneObj.body, {x:235, y:420}) 
 	  sling.attach(stoneObj.body);
-		gamestate = "start";
+    gamestate = "start";
+    Turns = Turns +1;
 	}
 }
 
@@ -141,5 +163,22 @@ function keyPressed() {
   if (distance<=lmango.r+lstone.r){
    Matter.Body.setStatic(lmango.body , false);
    stoneObj.visible = false;
+  
  } 
 }
+
+
+/*function COLLIDE(tground,tmango){
+  mangoBody=tmango.body
+  groundBody=tground.body
+
+  
+  //var distance=dist(groundBodyPosition.x,groundBodyPosition.y,mangoBodyPosition.x,mangoBodyPosition.y)
+  if (distance <= tmango.r+tground){
+    score = score +1;
+  }
+
+  if(tmango.isTouching(tground)){
+    score = score+1;
+  }
+}*/
